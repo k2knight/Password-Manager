@@ -1,35 +1,9 @@
-# Python Password Manager
+# Password Manager
 
-A simple local password manager written in Python and MariaDB. Uses [pbkdf2](https://en.wikipedia.org/wiki/PBKDF2) to derive a 256 bit key from a MASTER PASSWORD and DEVICE SECRET to use with AES-256 for encrypting/decrypting.
-
+A simple local password manager written in Python and MariaDB.
 
 # Installation
-You need to have python3 to run this on Windows, Linux or MacOS
-## Linux
-### Install Python Requirements
-```
-sudo apt install python3-pip
-pip install -r requirements.txt
-```
-
-```
-#### Create user 'pm' and grant permissions
-**Login to mysql as root**
-
-```
-sudo mysql -u root
-```
-**Create User**
-```
-CREATE USER 'pm'@localhost IDENTIFIED BY 'password';
-```
-**Grant privileges**
-```
-GRANT ALL PRIVILEGES ON *.* TO 'pm'@localhost IDENTIFIED BY 'password';
-```
-
-### Pyperclip
-[Pyperclip](https://pypi.org/project/pyperclip/) is a python module used to copy data to the clipboard. If you get a "not implemented error", follow this simple fix: https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error
+You need to have python3 to run this on Windows
 
 ## Windows
 ### Install Python Requirements
@@ -60,23 +34,19 @@ GRANT ALL PRIVILEGES ON *.* TO 'pm'@localhost IDENTIFIED BY 'password';
 ## Run
 ### Configure
 
-You need to first configure the password manager by choosing a MASTER PASSWORD. This config step is only required to be executed once.
+first we need to configure the by choosing a MASTER PASSWORD.
 ```
 python config.py make
 ```
-The above command will make a new configuration by asking you to choose a MASTER PASSWORD.
-This will generate the DEVICE SECRET, create db and required tables.
-
+To configure by Master Password
 ```
 python config.py delete
 ```
-The above command will delete the existing configuration. Doing this will completely delete your device secret and all your entries and you will loose all your passwords. So be aware!
-
+To delete all existing configuration. - All data will be lose
 ```
 python config.py remake
 ```
-The above command will first delete the existing configuration and create a fresh new configuration by asking you to choose a MASTER PASSWORD, generate the DEVICE SECRET, create the db and required tables.
-
+To delete all existing configuration and create new configuration by MASTER Password.
 ### Usage
 ```
 python pm.py -h
@@ -108,21 +78,21 @@ python pm.py add -s mysite -u mysite.com -e hello@email.com -l myusername
 ```
 python pm.py extract
 ```
-The above command retrieves all the entries
+command to retrieves all the entries
 ```
 python pm.py e -s mysite
 ```
-The above command retrieves all the entries whose site name is "mysite"
+command to retrieves all the entries with site name is "mysite"
 ```
 python pm.py e -s mysite -l myusername
 ```
-The above command retrieves the entry whose site name is "mysite" and username is "myusername"
+command to retrieves the entry whose site name is "mysite" and username is "myusername"
 ```
 python pm.py e -s mysite -l myusername --copy
 ```
-The above command copies the password of the site "mysite" and username "myusername" into the clipboard
+command to copies the password of the site "mysite" and username "myusername" into the clipboard
 ### Generate Password
 ```
 python pm.py g --length 15
 ```
-The above command generates a password of length 15 and copies to clipboard
+command auto generates a password of length 15 and copies to clipboard
